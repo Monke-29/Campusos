@@ -4,6 +4,7 @@
   "description": "CampusOS: an AI agent (MCP server) that gets campus problems fixed, not just recorded. wHACKiest 2026, Track 1.",
   "type": "module",
   "scripts": {
+    "start": "node src/server.js",
     "demo": "node scripts/demo.js",
     "mcp": "node src/mcp-server.js"
   },

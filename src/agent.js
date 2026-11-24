@@ -66,7 +66,8 @@ export async function handleReport({ text, studentId = "anon", photoUrl = null }
 export function listTickets(status = "all") {
   const { tickets } = getDb();
   const list = status === "all" ? tickets : tickets.filter((t) => t.status === status);
-  return list.sort((a, b) => b.reportCount - a.reportCount);
+  // Safety fast lane first, then most-reported
+  return list.sort((a, b) => b.is_safety_hazard - a.is_safety_hazard || b.reportCount - a.reportCount);
 }
 
 // Hack day: AWS EventBridge Scheduler calls this automatically.

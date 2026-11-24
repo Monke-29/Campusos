@@ -34,10 +34,22 @@ Requires Node.js 18+.
 
 ```bash
 npm install
+npm start          # web app → http://localhost:3000
+```
+
+**Web app:** students report an issue on the left. The admin ticket board on the right shows tickets
+with report counts (×15), department, deadline, urgency and safety flags, and safety hazards at the top.
+- **Load demo** sends the 18 sample complaints.
+- **Simulate +30 hours** escalates overdue tickets.
+- **Mark fixed** closes a ticket and notifies every reporter.
+
+### Terminal demo
+
+```bash
 npm run demo
 ```
 
-The demo sends 18 complaints (15 about the same projector, plus Wi-Fi, a leaking cooler and a
+The terminal demo sends 18 complaints (15 about the same projector, plus Wi-Fi, a leaking cooler and a
 sparking switchboard), then fast-forwards 30 hours and fixes the projector:
 
 ```
@@ -94,10 +106,12 @@ flowchart LR
 |---|---|
 | `src/classify.js` | LLM triage (complaint text treated as data, never instructions) + keyword fallback, safety flag |
 | `src/agent.js` | classify → dedup → merge/create → assign → notify; escalation; resolve |
-| `src/mcp-server.js` | The four MCP tools over stdio |
+| `public/index.html` | Web UI: report form + admin ticket board |
+| `src/server.js` | Web backend: JSON API (`/api/report`, `/api/tickets`, `/api/check-overdue`, `/api/resolve`) on Node's `http` |
+| `src/mcp-server.js` | The four MCP tools over stdio (same agent logic) |
 | `src/store.js` | JSON-file store |
 | `data/departments.json` | Category → department, email, SLA hours |
-| `scripts/demo.js` | The 15-projector demo |
+| `scripts/demo.js` · `data/demo-complaints.json` | The 15-projector demo |
 
 **Guardrails already in the prototype:** complaint text is never treated as instructions;
 low-confidence classifications are flagged `needsHumanReview`; tools are a fixed allowlist.
@@ -113,7 +127,7 @@ low-confidence classifications are flagged `needsHumanReview`; tools are a fixed
 | Notifications logged | Email (SES), WhatsApp (Twilio), voice replies (ElevenLabs TTS) |
 | `check_overdue` called manually | AWS EventBridge timers |
 | MCP over stdio | MCP over HTTP for an ElevenLabs voice agent |
-| CLI demo | Student web app + admin dashboard, proof-of-fix photo check, audit log |
+| Basic web app (plain HTML + Node `http`) | React app with login (USN), live dashboard (Supabase Realtime), proof-of-fix photo check, audit log |
 
 Full idea, research and plan: [`docs/CAMPUSOS_KNOWLEDGE.md`](docs/CAMPUSOS_KNOWLEDGE.md) ·
 [`docs/BUILD_PHASE_PLAN.md`](docs/BUILD_PHASE_PLAN.md)

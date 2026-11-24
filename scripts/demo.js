@@ -1,34 +1,15 @@
 // Demo for the video: 15 students report the same projector -> CampusOS makes ONE ticket.
+import fs from "node:fs";
 import "../src/env.js";
 import { handleReport, checkOverdue, resolveTicket } from "../src/agent.js";
 import { reset, getDb } from "../src/store.js";
 
 reset();
 
-const projector = [
-  "Projector in C-204 not working",
-  "C-204 projector shows no display",
-  "projector dead again in C 204",
-  "No display on the C204 projector, class can't start",
-  "Room C-204 projector keeps switching off",
-  "C-204: HDMI not detected on projector",
-  "projector in c-204 broken since morning",
-  "C-204 screen is blank, projector issue",
-  "Projector not turning on in C-204",
-  "Lecture delayed, C-204 projector not working",
-  "C 204 projector flickering then off",
-  "Please fix projector C-204",
-  "C-204 projector no signal",
-  "Projector remote and projector both not working C-204",
-  "C204 projector problem again!!",
-];
-const others = [
-  "Wi-Fi not working in L-201 library reading hall",
-  "Water cooler leaking near H-105 hostel corridor",
-  "Sparks coming from the switchboard in B-110!",
-];
+// 15 projector complaints + Wi-Fi, cooler, sparks (shared with the web UI's "Load demo" button)
+const complaints = JSON.parse(fs.readFileSync(new URL("../data/demo-complaints.json", import.meta.url), "utf8"));
 
-for (const text of [...projector, ...others]) {
+for (const text of complaints) {
   const { merged, ticket } = await handleReport({ text });
   console.log(`${merged ? "MERGED " : "NEW    "} ${ticket.id}  x${String(ticket.reportCount).padEnd(2)}  "${text}"`);
 }
