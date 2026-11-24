@@ -153,7 +153,7 @@ document.addEventListener("click", async (e) => {
   }
 });
 
-$("demo").onclick = async () => { const r = await api("/api/demo", {}); log(`Loaded ${r.loaded} demo complaints`); refresh(); };
+$("demo").onclick = async () => { const r = await api("/api/demo", {}); $("result").classList.remove("show"); log(`Loaded ${r.loaded} demo complaints`); refresh(); };
 $("overdue").onclick = async () => {
   const { escalated } = await api("/api/check-overdue", { hours: 30 });
   log(escalated.length ? `30 hours later: escalated ${escalated.join(", ")} to HoD / Facility Head` : "30 hours later: nothing overdue");
