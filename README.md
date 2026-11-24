@@ -2,7 +2,7 @@
 
 **An AI agent that doesn't just record campus complaints, it gets them fixed.**
 
-wHACKiest 2026 · Track 1: *Make MCP Matter* · Team CodeBrew
+wHACKiest 2026 · Track 1: *Make MCP Matter* · Team Code Brew
 
 > 15 students report the same broken projector → 15 complaints, 1 projector, 0 updates.
 > CampusOS turns them into **one ticket ×15**, routes it to the right team, escalates it when overdue,
@@ -131,12 +131,3 @@ low-confidence classifications are flagged `needsHumanReview`; tools are a fixed
 
 Full idea, research and plan: [`docs/CAMPUSOS_KNOWLEDGE.md`](docs/CAMPUSOS_KNOWLEDGE.md) ·
 [`docs/BUILD_PHASE_PLAN.md`](docs/BUILD_PHASE_PLAN.md)
-
-## Team CodeBrew
-
-| Name | Role |
-|---|---|
-| _TBD_ | |
-| _TBD_ | |
-
-College: _TBD_
