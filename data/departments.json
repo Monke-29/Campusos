@@ -1,0 +1,9 @@
+{
+  "projector":  { "dept": "IT & AV Team",           "email": "itav@college.edu",       "slaHours": 24 },
+  "wifi":       { "dept": "Network Team",           "email": "network@college.edu",    "slaHours": 12 },
+  "water":      { "dept": "Facilities",             "email": "facilities@college.edu", "slaHours": 24 },
+  "electrical": { "dept": "Electrical Maintenance", "email": "electrical@college.edu", "slaHours": 8 },
+  "hostel":     { "dept": "Hostel Office",          "email": "hostel@college.edu",     "slaHours": 48 },
+  "equipment":  { "dept": "Lab & Stores",           "email": "stores@college.edu",     "slaHours": 72 },
+  "other":      { "dept": "Admin Office",           "email": "admin@college.edu",      "slaHours": 72 }
+}

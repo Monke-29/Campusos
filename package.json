@@ -1,0 +1,16 @@
+{
+  "name": "campusos",
+  "version": "0.1.0",
+  "description": "CampusOS: an AI agent (MCP server) that gets campus problems fixed, not just recorded. wHACKiest 2026, Track 1.",
+  "type": "module",
+  "scripts": {
+    "demo": "node scripts/demo.js",
+    "mcp": "node src/mcp-server.js"
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.0",
+    "dotenv": "^16.4.5",
+    "zod": "^3.25.0"
+  }
+}
