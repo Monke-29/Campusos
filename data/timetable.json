@@ -1,0 +1,13 @@
+{
+  "_note": "Today's load per room, used for people-affected priority. Classrooms: lectures + enrolled students. Shared spaces: typical daily users.",
+  "C-204": { "lectures": 6, "students": 240, "label": "6 lectures" },
+  "C-205": { "lectures": 5, "students": 180, "label": "5 lectures" },
+  "A-101": { "lectures": 4, "students": 160, "label": "4 lectures" },
+  "A-102": { "lectures": 3, "students": 120, "label": "3 lectures" },
+  "B-110": { "lectures": 3, "students": 70, "label": "3 labs" },
+  "B-112": { "lectures": 4, "students": 90, "label": "4 labs" },
+  "L-201": { "lectures": 0, "students": 180, "label": "reading hall" },
+  "H-105": { "lectures": 0, "students": 64, "label": "hostel floor" },
+  "H-210": { "lectures": 0, "students": 64, "label": "hostel floor" },
+  "D-301": { "lectures": 4, "students": 150, "label": "4 lectures" }
+}

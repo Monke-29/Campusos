@@ -1,0 +1,18 @@
+{
+  "n": 30,
+  "at": "2026-11-26T15:34:40.471Z",
+  "keywords": {
+    "category": 80,
+    "location": 97,
+    "safety": 87,
+    "missedHazards": 4
+  },
+  "llm": {
+    "model": "gemini-flash-lite-latest",
+    "fellBack": 0,
+    "category": 100,
+    "location": 100,
+    "safety": 97,
+    "missedHazards": 0
+  }
+}
