@@ -1,7 +1,7 @@
 # CampusOS: complete prototype, built in phases (night of 24–25 Nov 2026)
 
 Phase 1 (ideathon submission) shipped a terminal demo, the MCP server and a plain HTML board.
-This document covers the full prototype built on top of it. **Nothing is pushed to GitHub yet.** Latest: Phase F (26 Nov), live keys + accuracy.
+This document covers the full prototype built on top of it. **Nothing is pushed to GitHub yet.** Latest: Phase G (26–27 Nov), accounts, voice agent, dashboard v3.
 
 ## How to run it
 
@@ -110,3 +110,19 @@ Phase E (dashboard + redesign, 25 Nov): see `docs/NEXT_PHASE_PITCH.md` §8.
 Accuracy before → after the two classify fixes (Gemini): category 73% → **100%**, room 67% → **100%**, safety 97%, hazards missed 0 of 7. Keywords alone: 80% / 97% / 87%, 4 of 7 hazards missed.
 
 **Later phase:** WhatsApp to any number needs a paid Twilio account, a Meta-approved WhatsApp sender and approved message templates. In code, only `TWILIO_WHATSAPP_FROM` changes.
+
+## Phase G: Accounts, voice agent, dashboard v3 (26–27 Nov)
+
+| What | Where |
+|---|---|
+| ☰ menu replaces the nav links: Community portal / Admin portal when signed out; dashboard, report, Wi-Fi, profile, sign out when signed in | `web/src/app/Nav.jsx` |
+| Google sign-in (ID token verified with Google, client ID + verified email checked); new users choose Student (USN) or Faculty | `googleSignIn()` in `src/auth.js`, `POST /api/auth/google`, `web/src/app/Login.jsx` (`GOOGLE_CLIENT_ID`) |
+| Faculty role (no USN; reports filed under their email), `reporterId()` used for my tickets, rating and reports | `src/auth.js`, `src/server.js` |
+| My profile: edit name, change/add password | `updateProfile()`, `POST /api/me/profile`, `web/src/app/Profile.jsx` |
+| Student / faculty dashboard with KPI tiles, donut and progress cards | `web/src/app/Me.jsx` |
+| ElevenLabs agent → CampusOS MCP over the tunnel; voice bubble in the app | `web/src/app/VoiceAgent.jsx` (`ELEVENLABS_AGENT_ID`) |
+| Admin console redesign: greeting header, pill tabs, KPI tiles with gauges and a stacked urgency bar, Needs attention, workload-by-team stacked bars, gradient daily columns. Removed the briefing sentence, "students happy", the live feed and the Integrations tab | `web/src/app/Overview.jsx`, `Charts.jsx` (`Gauge`, `StackBar`, `StackedBars`, `Donut`, `CountUp`, `Sparkline`), `app.css` |
+| Tickets sorted by urgency (default), newest, oldest, deadline; shared `byEmergency` | `web/src/lib/api.jsx`, `Admin.jsx` |
+| Voice input falls back to the browser if ElevenLabs fails | `web/src/app/Report.jsx`, `POST /api/transcribe` |
+
+**Next:** the escalation ladder and the known loopholes, both in [`STATUS.md`](STATUS.md#escalation-ladder-planned).

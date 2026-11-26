@@ -41,12 +41,15 @@ npm run eval       # accuracy on 30 hand-labelled complaints (uses the configure
 ```
 
 - **`/`**: landing page (3D clay campus: fifteen complaint pins merge into one ticket as you scroll)
-- **`/login`**: sign in or student signup. On a fresh install the first person here creates the admin
+- **`/login`**: community portal (students and faculty; Google sign-in or email). `/login?portal=admin` is the staff portal. On a fresh install the first person here creates the admin
 - **`/report`**: report by text, photo or voice (English / Kannada / Hindi)
-- **`/me`**: a student's own reports with live status
+- **`/me`**: a student's or faculty member's own dashboard: their reports, progress, rate the fix
+- **`/profile`**: edit your name, change or add a password
 - **`/t/T1001`**: student status page with timeline and read-aloud
 - **`/wifi`**: phone-as-a-sensor Wi-Fi check (3+ phones measuring a collapse file the ticket automatically)
-- **`/admin`**: live dashboard. **Load demo**, **Simulate +30h**, approve agent requests, proof-of-fix, audit log, integration status, staff accounts
+- **`/admin`**: staff console. KPI gauges, needs-attention list, campus map, Ask CampusOS, donuts and stacked charts; tickets sorted by urgency or date; Kanban board; approvals for AI requests; proof-of-fix; audit log; staff accounts. **Load demo**, **Simulate +30h**
+
+The ☰ menu (top right) is the only navigation: pick a portal when signed out, or your pages and profile when signed in. A floating **Talk to CampusOS** voice bubble (ElevenLabs agent, set `ELEVENLABS_AGENT_ID`) appears on the report, dashboard and status pages.
 
 To reach it from a phone or let Twilio call the WhatsApp webhook, open a tunnel and put its URL in `PUBLIC_URL`:
 `cloudflared tunnel --url http://localhost:3000` (no account needed; the URL changes on every restart).
@@ -150,16 +153,18 @@ low-confidence classifications are flagged `needsHumanReview`; tools are a fixed
 
 ## Built vs. still to do
 
-| Built (this repo, 26 Nov) | Later |
+| Built (branch `full-prototype`, 27 Nov) | Later |
 |---|---|
-| Text, photo (vision LLM) and Kannada/Hindi voice notes (ElevenLabs Scribe) | ElevenLabs voice agent over MCP |
+| Text, photo (vision LLM) and Kannada/Hindi voice notes (ElevenLabs Scribe); ElevenLabs voice agent calling the MCP server | |
 | Gemini (OpenAI-compatible) classification, Bedrock supported | Bedrock live (needs AWS credits) |
 | Dedup = embeddings + same category + building + room | LLM "same issue?" second check |
 | Supabase Postgres + Storage | |
 | WhatsApp via Twilio sandbox, ElevenLabs TTS, email logged | WhatsApp to any number (paid Twilio + Meta-approved sender + templates); SMTP/SES |
-| `check_overdue` runs every 5 min in the server | AWS EventBridge in production |
+| `check_overdue` runs every 5 min in the server; one escalation level (HoD) | **Escalation ladder**: remind the HoD after 24 h, Principal after 48 h ([plan](docs/STATUS.md#escalation-ladder-planned)); AWS EventBridge in production |
 | MCP over stdio and HTTP (`MCP_TOKEN`) | |
-| React app with logins + roles, live dashboard (SSE), proof-of-fix photo check, audit log | Room QR stickers, call-back when fixed, technician day plan |
+| React app: community + admin portals, Google sign-in, student/faculty/staff roles, profile page, live dashboard (SSE), proof-of-fix photo check, audit log | Room QR stickers, call-back when fixed, technician day plan |
+
+Known gaps (spoofable USN on anonymous reports, no report rate limit, open signup, logged-only email, and more) are listed with fixes in [`docs/STATUS.md` → Known loopholes](docs/STATUS.md#known-loopholes).
 
 Full idea, research and plan: [`docs/CAMPUSOS_KNOWLEDGE.md`](docs/CAMPUSOS_KNOWLEDGE.md) ·
 [`docs/BUILD_PHASE_PLAN.md`](docs/BUILD_PHASE_PLAN.md)
